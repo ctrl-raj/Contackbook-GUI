@@ -108,4 +108,4 @@ A passionate Python learner building tools to level up development skills.
 
     “Code is poetry that runs.”
 
-## ⚠️Note: The project is in progress and currently, it only holds basic functions only..
+## ⚠️Note: The project is in progress and currently it holds basic functions only..

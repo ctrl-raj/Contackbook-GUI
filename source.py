@@ -6,8 +6,8 @@ import csv # for content management
 from tabulate import tabulate
 
 # fonts 
-pyglet.font.add_file("./AbrilFatface-Regular.ttf")
-pyglet.font.add_file("./RobotoMono-Regular.ttf")
+pyglet.font.add_file("./Assets/AbrilFatface-Regular.ttf")
+pyglet.font.add_file("./Assets/RobotoMono-Regular.ttf")
 
 #Colours
 violet = "#7F55B1"
