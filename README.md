@@ -1,7 +1,8 @@
-ContactBook GUI
+#ContactBook GUI
 
 A simple and elegant contact management system built with Python's tkinter. This app lets you add new contacts, view saved entries, and manage your contact list — all saved locally in a CSV file.
-📌 Features
+
+##📌 Features
 
     ✅ Add new contacts with name and phone number
 
@@ -13,7 +14,7 @@ A simple and elegant contact management system built with Python's tkinter. This
 
     🚪 Exit and navigation buttons for smooth workflow
 
-🖼️ Interface Preview
+##🖼️ Interface Preview
 
     Frame 1: Home screen with buttons to add, view, or edit contacts
 
@@ -23,7 +24,7 @@ A simple and elegant contact management system built with Python's tkinter. This
 
     Frame 4: Display all contacts in a scrollable text widget
 
-📁 File Structure
+##📁 File Structure
 
 project-folder/
 │
@@ -32,7 +33,7 @@ project-folder/
 ├── AbrilFatface-Regular.ttf      # Custom font used in GUI
 ├── RobotoMono-Regular.ttf        # Custom font used in GUI
 
-🚀 Getting Started
+##🚀 Getting Started
 1. Clone or download this repo:
 
 git clone https://github.com/yourusername/contactbook-gui.git
@@ -48,7 +49,7 @@ python ContactBook.py
 
     Ensure you have Python 3 installed. If not, install it from python.org.
 
-💾 Data Format
+##💾 Data Format
 
 All contacts are stored in a simple database.csv file:
 
@@ -56,7 +57,7 @@ Name,Phone
 John Doe,1234567890
 Jane Smith,9876543210
 
-📦 Dependencies
+##📦 Dependencies
 
     tkinter – Standard Python GUI toolkit
 
@@ -68,7 +69,7 @@ Jane Smith,9876543210
 
     csv – Built-in module for file management
 
-⚠️ Known Limitations
+##⚠️ Known Limitations
 
     "Edit Contacts" button is present but not yet implemented.
 
@@ -76,7 +77,7 @@ Jane Smith,9876543210
 
     No duplicate check or contact deletion feature.
 
-📌 To-Do / Future Improvements
+##📌 To-Do / Future Improvements
 
     ✅ Add contact
 
@@ -90,9 +91,11 @@ Jane Smith,9876543210
 
     🔲 Export to .txt or .xlsx formats
 
-🧑‍💻 Author
+##🧑‍💻 Author
 
 Ramkrishna Raj Sinha
 A passionate Python learner building tools to level up development skills.
 
     “Code is poetry that runs.”
+
+##⚠️Note: The project is in progress and currently, it only holds basic functions only..
