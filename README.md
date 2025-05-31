@@ -34,10 +34,14 @@ A simple and elegant contact management system built with Python's tkinter. This
 
     project-folder/
     │
-    ├── ContactBook.py                # Main application script
+    ├── source.py                     # Main application script
     ├── database.csv                  # Stores contact records
-    ├── AbrilFatface-Regular.ttf      # Custom font used in GUI
-    ├── RobotoMono-Regular.ttf        # Custom font used in GUI
+    ├── Assets
+        ├──AbrilFatface-Regular.ttf   # Custom font used in GUI
+        ├── RobotoMono-Regular.ttf    # Custom font used in GUI
+    ├── Legecy_Contactbook            # Old Contactbook files
+        ├── ContactBook CLI.py
+        ├── ContactBook-Database
 
 ## 🚀 Getting Started
 1. Clone or download this repo:
