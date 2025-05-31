@@ -26,9 +26,10 @@ def frame1_index():
     clear_widgets(frame2)
     clear_widgets(frame3)
     clear_widgets(frame4)
+    clear_widgets(frame5)
 
     # other elements in frame1
-	    # label widget for program name
+	# label widget for program name
     tk.Label(
         frame1, #it is part of frame1
         text="Contactbook CLI",
@@ -66,14 +67,14 @@ def frame1_index():
     # edit contacts button
     tk.Button(
         frame1,
-        text="Edit Contacts",
+        text="Search Contacts",
         font=("Abril Fatface", 16, "bold"),
         bg=pink,
         fg=dpurple,
         cursor="hand2",
         activebackground=lpurple,
         activeforeground=dpurple,
-        command=lambda: frame2_addnew()  # calls load_frame2() [lambda->when clicked]
+        command=lambda: frame5_search()  # calls load_frame2() [lambda->when clicked]
     ).pack(pady=10)
 	
         # Close button
@@ -201,6 +202,7 @@ def frame4_allcontacts():
     frame4.tkraise()
     clear_widgets(frame1)
 
+    # all saved cont label
     tk.Label(
             frame4,
             text="All Saved Contacts:",
@@ -208,6 +210,8 @@ def frame4_allcontacts():
             fg=dpurple,
             font=("Abril Fatface", 20)
             ).pack(pady=20)
+    
+    # text display for contacts
     all_contacts = tk.Text(
             frame4,
             wrap="word",
@@ -237,6 +241,112 @@ def frame4_allcontacts():
         command=lambda: (frame1_index())
     ).pack(pady=10)
 
+# search contacts
+def frame5_search():
+    frame5.tkraise()
+    clear_widgets(frame1)
+
+    global search_entry
+
+    # label widget for program name
+    tk.Label(
+        frame5,
+        text="Contactbook CLI",
+        bg=beige,
+        fg=dpurple,
+        font=("Abril Fatface", 20)
+        ).pack(pady=20)
+    
+    # search label
+    tk.Label(
+        frame5,
+        text="Enter Name",
+        bg=beige,
+        fg=violet,
+        font=("Roboto Mono", 12),
+    ).pack(fill="both")
+
+    # search word entry
+    search_entry = tk.Entry(frame5, width=40)
+    search_entry.pack(pady=15)
+
+    # search button
+    tk.Button(
+        frame5,
+        text="Search",
+        font=("Abril Fatface", 16, "bold"),
+        bg=pink,
+        fg=dpurple,
+        cursor="hand2",
+        activebackground=lpurple,
+        activeforeground=dpurple,
+        command=lambda: (search_contact(search_entry.get()), frame6_search_res())).pack(pady=10)
+    
+    # Back button
+    tk.Button(
+        frame5,
+        text="Back",
+        font=("Abril Fatface", 12, "bold italic"),
+        bg=pink,
+        fg=dpurple,
+        cursor="hand2",
+        activebackground=lpurple,
+        activeforeground=dpurple,
+        command=lambda: (frame1_index(),),
+    ).pack(pady=10)
+
+# search results
+def frame6_search_res():
+    frame6.tkraise()
+    clear_widgets(frame5)
+
+    # label widget for program name
+    tk.Label(
+        frame6,
+        text="Contactbook CLI",
+        bg=beige,
+        fg=dpurple,
+        font=("Abril Fatface", 20)
+        ).pack(pady=20)
+    
+    # results label
+    tk.Label(
+            frame6,
+            text=f"Search Results: ",
+            bg=beige,
+            fg=dpurple,
+            font=("Abril Fatface", 20)
+            ).pack(pady=20)
+    
+    # search results
+    all_contacts = tk.Text(
+            frame6,
+            wrap="word",
+            width=35,
+            height=10,
+            bg=violet,
+            fg=beige,
+            font=("Roboto Mono", 12, "bold")
+      )
+    all_contacts.pack(pady=10)
+      
+    all_contacts.config(state="normal")
+    all_contacts.delete("1.0","end")
+    all_contacts.insert("1.0", search_content)
+    all_contacts.config(state="disabled")
+
+    # Back button
+    tk.Button(
+        frame6,
+        text="Back",
+        font=("Abril Fatface", 12, "bold italic"),
+        bg=pink,
+        fg=dpurple,
+        cursor="hand2",
+        activebackground=lpurple,
+        activeforeground=dpurple,
+        command=lambda: (frame1_index(),),
+    ).pack(pady=10)
 
 #--- FUNCTIONS---
 
@@ -269,6 +379,20 @@ def view_contacts():
             content = tabulate(rows, headers="keys", tablefmt="grid")
     return content
 
+# search function
+def search_contact(search_word):
+    global search_content
+    with open("database.csv", "r") as file:
+        search_content = ""
+        reader = csv.DictReader(file)
+        rows = list(reader) 
+        contacts = rows
+        for contact in contacts:
+             if search_word.title() in contact.get('Name'):
+                  print(contact)
+                  search_content = tabulate([contact], headers='keys', tablefmt='grid')
+                  print(search_content)
+    return search_content
 
 # initialize app
 root = tk.Tk()
@@ -280,9 +404,11 @@ frame1 = tk.Frame(root, width=500, height=600, bg=beige)
 frame2 = tk.Frame(root, bg=beige)
 frame3 = tk.Frame(root, bg=beige)
 frame4 = tk.Frame(root, bg=beige)
+frame5 = tk.Frame(root, bg=beige)
+frame6 = tk.Frame(root, bg=beige)
 
 
-for frame in (frame1, frame2, frame3, frame4):
+for frame in (frame1, frame2, frame3, frame4, frame5, frame6):
 	frame.grid(row=0, column=0, sticky="nesw")
 	
 frame1_index() # calls frame1 in the start
