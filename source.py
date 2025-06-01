@@ -23,10 +23,6 @@ beige = "#FFE1E0"
 def frame1_index():
     frame1.tkraise()
     frame1.pack_propagate(False) #doesn't allow to propagate influence of one element
-    clear_widgets(frame2)
-    clear_widgets(frame3)
-    clear_widgets(frame4)
-    clear_widgets(frame5)
 
     # other elements in frame1
 	# label widget for program name
@@ -48,10 +44,10 @@ def frame1_index():
         cursor="hand2",
         activebackground=lpurple,
         activeforeground=dpurple,
-        command=lambda: frame2_addnew()  # calls load_frame2() [lambda->when clicked]
+        command=lambda: (clear_widgets(frame1), frame2_addnew())  # calls load_frame2() [lambda->when clicked]
     ).pack(pady=10)
 
-    # add contacts button
+    # view all contacts button
     tk.Button(
         frame1,
         text="View All Contacts",
@@ -61,7 +57,7 @@ def frame1_index():
         cursor="hand2",
         activebackground=lpurple,
         activeforeground=dpurple,
-        command=lambda: (view_contacts(),frame4_allcontacts())  # calls load_frame2() [lambda->when clicked]
+        command=lambda: (clear_widgets(frame1), view_contacts(),frame4_allcontacts())  # calls load_frame2() [lambda->when clicked]
     ).pack(pady=10)
 
     # edit contacts button
@@ -74,7 +70,7 @@ def frame1_index():
         cursor="hand2",
         activebackground=lpurple,
         activeforeground=dpurple,
-        command=lambda: frame5_search()  # calls load_frame2() [lambda->when clicked]
+        command=lambda: (clear_widgets(frame1), frame5_search())  # calls load_frame2() [lambda->when clicked]
     ).pack(pady=10)
 	
         # Close button
@@ -93,7 +89,6 @@ def frame1_index():
 # add contacts screen
 def frame2_addnew():
     frame2.tkraise()
-    clear_widgets(frame1)
 
     global name_entry
     global phone_entry
@@ -145,7 +140,7 @@ def frame2_addnew():
         cursor="hand2",
         activebackground=lpurple,
         activeforeground=dpurple,
-        command=lambda: (add_new(name=name_entry.get(), phone=phone_entry.get()), frame3_saved()),
+        command=lambda: (clear_widgets(frame2), add_new(name=name_entry.get(), phone=phone_entry.get()), frame3_saved()),
     ).pack(pady=10)
 
     # Back button
@@ -158,13 +153,12 @@ def frame2_addnew():
         cursor="hand2",
         activebackground=lpurple,
         activeforeground=dpurple,
-        command=lambda: (frame1_index(),),
+        command=lambda: (clear_widgets(frame2), frame1_index(),),
     ).pack(pady=10)
 
 # Saved new contact screen
 def frame3_saved():
         frame3.tkraise()
-        clear_widgets(frame2)
 
         # program label
         tk.Label(
@@ -194,13 +188,12 @@ def frame3_saved():
         cursor="hand2",
         activebackground=lpurple,
         activeforeground=dpurple,
-        command=lambda: (frame1_index(),)
+        command=lambda: (clear_widgets(frame3), frame1_index(),)
     ).pack(pady=10)
 
 # view all contacts 
 def frame4_allcontacts():
     frame4.tkraise()
-    clear_widgets(frame1)
 
     # all saved cont label
     tk.Label(
@@ -238,13 +231,12 @@ def frame4_allcontacts():
         cursor="hand2",
         activebackground=lpurple,
         activeforeground=dpurple,
-        command=lambda: (frame1_index())
+        command=lambda: (clear_widgets(frame4), frame1_index())
     ).pack(pady=10)
 
 # search contacts
 def frame5_search():
     frame5.tkraise()
-    clear_widgets(frame1)
 
     global search_entry
 
@@ -280,7 +272,7 @@ def frame5_search():
         cursor="hand2",
         activebackground=lpurple,
         activeforeground=dpurple,
-        command=lambda: (search_contact(search_entry.get()), frame6_search_res())).pack(pady=10)
+        command=lambda: (handle_search())).pack(pady=10)
     
     # Back button
     tk.Button(
@@ -292,13 +284,12 @@ def frame5_search():
         cursor="hand2",
         activebackground=lpurple,
         activeforeground=dpurple,
-        command=lambda: (frame1_index(),),
+        command=lambda: (clear_widgets(frame5), frame1_index(),),
     ).pack(pady=10)
 
 # search results
 def frame6_search_res():
     frame6.tkraise()
-    clear_widgets(frame5)
 
     # label widget for program name
     tk.Label(
@@ -345,7 +336,7 @@ def frame6_search_res():
         cursor="hand2",
         activebackground=lpurple,
         activeforeground=dpurple,
-        command=lambda: (frame1_index(),),
+        command=lambda: (clear_widgets(frame6), frame1_index(),),
     ).pack(pady=10)
 
 #--- FUNCTIONS---
@@ -359,6 +350,8 @@ def clear_widgets(frame):
 # add new contacts function 
 def add_new(name, phone):
     global frame3text
+    if name == "" or phone == "":
+         frame3text = f"Name or Phone cannot be empty!"
     with open('database.csv', 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow([name.title(), phone])
@@ -379,20 +372,29 @@ def view_contacts():
             content = tabulate(rows, headers="keys", tablefmt="grid")
     return content
 
+# handle search
+def handle_search():
+     search_word = search_entry.get()
+     clear_widgets(frame5)
+     search_contact(search_word)
+     frame6_search_res()
+
 # search function
 def search_contact(search_word):
     global search_content
     with open("database.csv", "r") as file:
-        search_content = ""
         reader = csv.DictReader(file)
         rows = list(reader) 
         contacts = rows
+        found = []
         for contact in contacts:
              if search_word.title() in contact.get('Name'):
-                  print(contact)
-                  search_content = tabulate([contact], headers='keys', tablefmt='grid')
-                  print(search_content)
-    return search_content
+                  found.append(contact)
+        if found :
+             search_content = tabulate(found, headers='keys', tablefmt='grid')
+        else :
+             search_content = f"Sorry! the searched contact was not found in saved contacts"
+        return search_content
 
 # initialize app
 root = tk.Tk()
