@@ -1,5 +1,6 @@
 #Contactbook GUI Code
 import tkinter as tk # for GUI
+from tkinter import * # for logo
 from PIL import ImageTk # for logo widget
 import pyglet # for fonts
 import csv # for content management
@@ -23,6 +24,12 @@ beige = "#FFE1E0"
 def frame1_index():
     frame1.tkraise()
     frame1.pack_propagate(False) #doesn't allow to propagate influence of one element
+
+    #logo widget
+    logo_img = ImageTk.PhotoImage(file="./Assets/logo.png")
+    logo_widget = tk.Label(frame1, image=logo_img, bg=beige)
+    logo_widget.image = logo_img  # Already done but it is needed
+    logo_widget.pack()
 
     # other elements in frame1
 	# label widget for program name
@@ -89,6 +96,12 @@ def frame1_index():
 # add contacts screen
 def frame2_addnew():
     frame2.tkraise()
+
+    #logo widget
+    logo_img = ImageTk.PhotoImage(file="./Assets/logo.png")
+    logo_widget = tk.Label(frame2, image=logo_img, bg=beige)
+    logo_widget.image = logo_img  # Already done but it is needed
+    logo_widget.pack()
 
     global name_entry
     global phone_entry
@@ -160,6 +173,13 @@ def frame2_addnew():
 def frame3_saved():
         frame3.tkraise()
 
+        #logo widget
+        logo_img = ImageTk.PhotoImage(file="./Assets/logo.png")
+        logo_widget = tk.Label(frame3, image=logo_img, bg=beige)
+        logo_widget.image = logo_img  # Already done but it is needed
+        logo_widget.pack()
+        
+
         # program label
         tk.Label(
         frame3,
@@ -194,6 +214,12 @@ def frame3_saved():
 # view all contacts 
 def frame4_allcontacts():
     frame4.tkraise()
+
+    #logo widget
+    logo_img = ImageTk.PhotoImage(file="./Assets/logo.png")
+    logo_widget = tk.Label(frame4, image=logo_img, bg=beige)
+    logo_widget.image = logo_img  # Already done but it is needed
+    logo_widget.pack()
 
     # all saved cont label
     tk.Label(
@@ -237,8 +263,13 @@ def frame4_allcontacts():
 # search contacts
 def frame5_search():
     frame5.tkraise()
-
     global search_entry
+
+    #logo widget
+    logo_img = ImageTk.PhotoImage(file="./Assets/logo.png")
+    logo_widget = tk.Label(frame5, image=logo_img, bg=beige)
+    logo_widget.image = logo_img  # Already done but it is needed
+    logo_widget.pack()
 
     # label widget for program name
     tk.Label(
@@ -290,6 +321,12 @@ def frame5_search():
 # search results
 def frame6_search_res():
     frame6.tkraise()
+
+    #logo widget
+    logo_img = ImageTk.PhotoImage(file="./Assets/logo.png")
+    logo_widget = tk.Label(frame2, image=logo_img, bg=beige)
+    logo_widget.image = logo_img  # Already done but it is needed
+    logo_widget.pack()
 
     # label widget for program name
     tk.Label(
@@ -412,6 +449,11 @@ frame6 = tk.Frame(root, bg=beige)
 
 for frame in (frame1, frame2, frame3, frame4, frame5, frame6):
 	frame.grid(row=0, column=0, sticky="nesw")
+
+# logo for the window
+logo = PhotoImage(file = './Assets/logo.png')
+# Setting icon of root window
+root.iconphoto(False, logo)
 	
 frame1_index() # calls frame1 in the start
 
