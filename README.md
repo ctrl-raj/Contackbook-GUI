@@ -8,6 +8,8 @@ A simple and elegant contact management system built with Python's tkinter. This
 
 - 📄 View all saved contacts in a tabular format
 
+- ✏ Edit a saved contact via search function
+
 - 💾 Data saved persistently in database.csv
 
 - 🔎 Search saved contacts
@@ -30,6 +32,10 @@ A simple and elegant contact management system built with Python's tkinter. This
 
     Frame 6: Display search results based on search
 
+    Frame 7: Edit contact window
+
+    Frame 8: Display result of Editing of a contact
+
 ## 📁 File Structure
 
     project-folder/
@@ -37,8 +43,9 @@ A simple and elegant contact management system built with Python's tkinter. This
     ├── source.py                     # Main application script
     ├── database.csv                  # Stores contact records
     ├── Assets
-        ├──AbrilFatface-Regular.ttf   # Custom font used in GUI
+        ├── AbrilFatface-Regular.ttf  # Custom font used in GUI
         ├── RobotoMono-Regular.ttf    # Custom font used in GUI
+        ├── logo.png                  # Custom logo used in GUI
     ├── Legecy_Contactbook            # Old Contactbook files
         ├── ContactBook CLI.py
         ├── ContactBook-Database
@@ -81,8 +88,6 @@ All contacts are stored in a simple database.csv file:
 
 ## ⚠️ Known Limitations
 
-    "Edit Contacts" button is present but not yet implemented.
-
     No input validation for names or phone numbers yet.
 
     No duplicate check or contact deletion feature.
@@ -93,13 +98,11 @@ All contacts are stored in a simple database.csv file:
 
 - ✅ View contacts
 
-- 🔲 Edit & Delete contacts
+- ✅ Edit & Delete contacts
 
 - ✅ Search functionality
 
 - ✅ Sorting by name or phone
-
-- 🔲 Export to .txt or .xlsx formats
 
 ## 🧑‍💻 Author
 
@@ -108,4 +111,3 @@ A passionate Python learner building tools to level up development skills.
 
     “Code is poetry that runs.”
 
-## ⚠️Note: The project is in progress and currently it holds basic functions only..

@@ -575,7 +575,6 @@ def edit_contacts(search_word, edit_name, edit_phone):
         writer.writerow(["Name", "Phone"])
         for contact in contacts:
             if search_word.strip().lower() in contact.get("Name").strip().lower():
-                print("found")
                 if edit_name == "" and edit_phone == "":
                     writer.writerow([contact.get("Name"), contact.get("Phone")])
                     edited = True
