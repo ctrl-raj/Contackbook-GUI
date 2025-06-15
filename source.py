@@ -363,6 +363,18 @@ def frame6_search_res():
     all_contacts.insert("1.0", search_content)
     all_contacts.config(state="disabled")
 
+    # search button
+    tk.Button(
+        frame6,
+        text="Edit",
+        font=("Abril Fatface", 16, "bold"),
+        bg=pink,
+        fg=dpurple,
+        cursor="hand2",
+        activebackground=lpurple,
+        activeforeground=dpurple,
+        command=lambda: (handle_search())).pack(pady=10)
+
     # Back button
     tk.Button(
         frame6,
@@ -432,6 +444,8 @@ def search_contact(search_word):
         else :
              search_content = f"Sorry! the searched contact was not found in saved contacts"
         return search_content
+
+
 
 # initialize app
 root = tk.Tk()
