@@ -324,7 +324,7 @@ def frame6_search_res():
 
     #logo widget
     logo_img = ImageTk.PhotoImage(file="./Assets/logo.png")
-    logo_widget = tk.Label(frame2, image=logo_img, bg=beige)
+    logo_widget = tk.Label(frame6, image=logo_img, bg=beige)
     logo_widget.image = logo_img  # Already done but it is needed
     logo_widget.pack()
 
@@ -363,7 +363,7 @@ def frame6_search_res():
     all_contacts.insert("1.0", search_content)
     all_contacts.config(state="disabled")
 
-    # search button
+    # edit button
     tk.Button(
         frame6,
         text="Edit",
@@ -373,7 +373,7 @@ def frame6_search_res():
         cursor="hand2",
         activebackground=lpurple,
         activeforeground=dpurple,
-        command=lambda: (handle_search())).pack(pady=10)
+        command=lambda: (clear_widgets(frame6), frame7_edit_contact())).pack(pady=10)
 
     # Back button
     tk.Button(
@@ -387,6 +387,112 @@ def frame6_search_res():
         activeforeground=dpurple,
         command=lambda: (clear_widgets(frame6), frame1_index(),),
     ).pack(pady=10)
+
+# edit contact frame
+def frame7_edit_contact():
+    frame7.tkraise()
+    global edit_name_entry
+    global edit_phone_entry
+
+    # logo widget
+    logo_img = ImageTk.PhotoImage(file="./Assets/logo.png")
+    logo_widget = tk.Label(frame7, image=logo_img, bg=beige)
+    logo_widget.image = logo_img  # Already done but it is needed
+    logo_widget.pack()
+
+    # label widget for instruction
+    tk.Label(
+        frame7,
+        text="Leave Blank for no change",
+        bg=beige,
+        fg=dpurple,
+        font=("Abril Fatface", 20)
+        ).pack(pady=20)
+    
+    # endter new name label
+    tk.Label(
+        frame7,
+        text="Enter New Name",
+        bg=beige,
+        fg=violet,
+        font=("Roboto Mono", 12),
+    ).pack(fill="both")
+
+    # edit name entry
+    edit_name_entry = tk.Entry(frame7, width=40)
+    edit_name_entry.pack(pady=15)
+
+    # endter new phone label
+    tk.Label(
+        frame7,
+        text="Enter New Phone",
+        bg=beige,
+        fg=violet,
+        font=("Roboto Mono", 12),
+    ).pack(fill="both")
+
+    # edit phone entry
+    edit_phone_entry = tk.Entry(frame7, width=40)
+    edit_phone_entry.pack(pady=15)
+
+    # confirm button
+    tk.Button(
+        frame7,
+        text="Confirm",
+        font=("Abril Fatface", 16, "bold"),
+        bg=pink,
+        fg=dpurple,
+        cursor="hand2",
+        activebackground=lpurple,
+        activeforeground=dpurple,
+        command=lambda: (handle_edit())).pack(pady=10)
+    
+    # Back button
+    tk.Button(
+        frame7,
+        text="Back",
+        font=("Abril Fatface", 12, "bold italic"),
+        bg=pink,
+        fg=dpurple,
+        cursor="hand2",
+        activebackground=lpurple,
+        activeforeground=dpurple,
+        command=lambda: (clear_widgets(frame7), frame1_index(),),
+    ).pack(pady=10)
+
+# edit message frame
+def frame8_edit_message():
+    frame8.tkraise()
+
+    # logo widget
+    logo_img = ImageTk.PhotoImage(file="./Assets/logo.png")
+    logo_widget = tk.Label(frame7, image=logo_img, bg=beige)
+    logo_widget.image = logo_img  # Already done but it is needed
+    logo_widget.pack()
+
+    # new contact saved or not
+    tk.Label(
+        frame8,
+        text=frame8text,
+        bg=beige,
+        fg=dpurple,
+        font=("Abril Fatface", 20)
+        ).pack(pady=20)
+
+    # Back button
+    tk.Button(
+        frame8,
+        text="Back",
+        font=("Abril Fatface", 12, "bold italic"),
+        bg=pink,
+        fg=dpurple,
+        cursor="hand2",
+        activebackground=lpurple,
+        activeforeground=dpurple,
+        command=lambda: (clear_widgets(frame8), frame1_index(),),
+    ).pack(pady=10)
+
+
 
 #--- FUNCTIONS---
 
@@ -423,7 +529,9 @@ def view_contacts():
 
 # handle search
 def handle_search():
+     global global_search_word
      search_word = search_entry.get()
+     global_search_word = search_word
      clear_widgets(frame5)
      search_contact(search_word)
      frame6_search_res()
@@ -445,7 +553,48 @@ def search_contact(search_word):
              search_content = f"Sorry! the searched contact was not found in saved contacts"
         return search_content
 
+def handle_edit():
+     search_word = global_search_word
+     edit_name = edit_name_entry.get().strip()
+     edit_phone = edit_phone_entry.get().strip()
+     edit_contacts(search_word, edit_name, edit_phone)
+     clear_widgets(frame7)
+     frame8_edit_message()
 
+def edit_contacts(search_word, edit_name, edit_phone):
+    global frame8text
+    edited = False
+
+    with open("database.csv", "r", newline='') as file:
+        reader = csv.DictReader(file)
+        rows = list(reader)
+        contacts = rows
+    
+    with open("database.csv", "w", newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(["Name", "Phone"])
+        for contact in contacts:
+            if search_word.strip().lower() in contact.get("Name").strip().lower():
+                print("found")
+                if edit_name == "" and edit_phone == "":
+                    writer.writerow([contact.get("Name"), contact.get("Phone")])
+                    edited = True
+                elif edit_name == "":
+                    writer.writerow([contact.get("Name"), edit_phone])
+                    edited = True
+                elif edit_phone == "":
+                    writer.writerow([edit_name.title(), contact.get("Phone")])
+                    edited = True
+                else:
+                    writer.writerow([edit_name.title(), edit_phone])
+                    edited = True
+            else:
+                writer.writerow([contact.get("Name"), contact.get("Phone")])
+    
+    if edited :
+         frame8text = f"Updated to: {edit_name.title() or contact['Name']} - {edit_phone or contact['Phone']}"
+    else :
+         frame8text = f"Selected contact was not Updated..!"
 
 # initialize app
 root = tk.Tk()
@@ -459,9 +608,11 @@ frame3 = tk.Frame(root, bg=beige)
 frame4 = tk.Frame(root, bg=beige)
 frame5 = tk.Frame(root, bg=beige)
 frame6 = tk.Frame(root, bg=beige)
+frame7 = tk.Frame(root, bg=beige)
+frame8 = tk.Frame(root, bg=beige)
 
 
-for frame in (frame1, frame2, frame3, frame4, frame5, frame6):
+for frame in (frame1, frame2, frame3, frame4, frame5, frame6, frame7, frame8):
 	frame.grid(row=0, column=0, sticky="nesw")
 
 # logo for the window
