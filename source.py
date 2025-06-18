@@ -54,6 +54,15 @@ def frame1_index():
         command=lambda: (clear_widgets(frame1), frame2_addnew())  # calls load_frame2() [lambda->when clicked]
     ).pack(pady=10)
 
+    # function label
+    tk.Label(
+        frame1,
+        text="-> Add a new contact",
+        bg=beige,
+        fg=violet,
+        font=("Roboto Mono", 12),
+    ).pack(fill="both")
+
     # view all contacts button
     tk.Button(
         frame1,
@@ -67,7 +76,16 @@ def frame1_index():
         command=lambda: (clear_widgets(frame1), view_contacts(),frame4_allcontacts())  # calls load_frame2() [lambda->when clicked]
     ).pack(pady=10)
 
-    # edit contacts button
+    # function label
+    tk.Label(
+        frame1,
+        text="-> View all saved contacts",
+        bg=beige,
+        fg=violet,
+        font=("Roboto Mono", 12),
+    ).pack(fill="both")
+
+    # search contacts button
     tk.Button(
         frame1,
         text="Search Contacts",
@@ -79,6 +97,15 @@ def frame1_index():
         activeforeground=dpurple,
         command=lambda: (clear_widgets(frame1), frame5_search())  # calls load_frame2() [lambda->when clicked]
     ).pack(pady=10)
+
+    # function label
+    tk.Label(
+        frame1,
+        text="-> Search within saved contacts and Edit",
+        bg=beige,
+        fg=violet,
+        font=("Roboto Mono", 12),
+    ).pack(fill="both")
 	
         # Close button
     tk.Button(
