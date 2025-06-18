@@ -153,7 +153,7 @@ def frame2_addnew():
         cursor="hand2",
         activebackground=lpurple,
         activeforeground=dpurple,
-        command=lambda: (clear_widgets(frame2), add_new(name=name_entry.get(), phone=phone_entry.get()), frame3_saved()),
+        command=lambda: (add_new(name=name_entry.get(), phone=phone_entry.get()), clear_widgets(frame2), frame3_saved()),
     ).pack(pady=10)
 
     # Back button
