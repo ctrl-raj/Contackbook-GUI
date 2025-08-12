@@ -2,13 +2,8 @@
 import tkinter as tk # for GUI
 from tkinter import * # for logo
 from PIL import ImageTk # for logo widget
-import pyglet # for fonts
 import csv # for content management
 from tabulate import tabulate
-
-# fonts 
-pyglet.font.add_file("./Assets/AbrilFatface-Regular.ttf")
-pyglet.font.add_file("./Assets/RobotoMono-Regular.ttf")
 
 #Colours
 violet = "#7F55B1"
@@ -26,26 +21,24 @@ def frame1_index():
     frame1.pack_propagate(False) #doesn't allow to propagate influence of one element
 
     #logo widget
-    logo_img = ImageTk.PhotoImage(file="./Assets/logo.png")
-    logo_widget = tk.Label(frame1, image=logo_img, bg=beige)
-    logo_widget.image = logo_img  # Already done but it is needed
-    logo_widget.pack()
+    logo_img = tk.PhotoImage(file="./Assets/logo.png")
+    frame1.iconphoto(False, logo_img).pack()  # Set the icon for the frame
 
     # other elements in frame1
-	# label widget for program name
+    # label widget for program name
     tk.Label(
         frame1, #it is part of frame1
         text="Contactbook CLI",
         bg=beige,
         fg=dpurple,
-        font=("Abril Fatface", 20)
+        font=("Helvetica", 20, "bold")
         ).pack(pady=20)
 
     # add contacts button
     tk.Button(
         frame1,
         text="Add Contact",
-        font=("Abril Fatface", 16, "bold"),
+        font=("Helvetica", 16, "bold"),
         bg=pink,
         fg=dpurple,
         cursor="hand2",
@@ -60,14 +53,14 @@ def frame1_index():
         text="-> Add a new contact",
         bg=beige,
         fg=violet,
-        font=("Roboto Mono", 12),
+        font=("Courier", 12),
     ).pack(fill="both")
 
     # view all contacts button
     tk.Button(
         frame1,
         text="View All Contacts",
-        font=("Abril Fatface", 16, "bold"),
+        font=("Helvetica", 16, "bold"),
         bg=pink,
         fg=dpurple,
         cursor="hand2",
@@ -82,14 +75,14 @@ def frame1_index():
         text="-> View all saved contacts",
         bg=beige,
         fg=violet,
-        font=("Roboto Mono", 12),
+        font=("Courier", 12),
     ).pack(fill="both")
 
     # search contacts button
     tk.Button(
         frame1,
         text="Search Contacts",
-        font=("Abril Fatface", 16, "bold"),
+        font=("Helvetica", 16, "bold"),
         bg=pink,
         fg=dpurple,
         cursor="hand2",
@@ -104,14 +97,14 @@ def frame1_index():
         text="-> Search within saved contacts and Edit",
         bg=beige,
         fg=violet,
-        font=("Roboto Mono", 12),
+        font=("Courier", 12),
     ).pack(fill="both")
-	
-        # Close button
+    
+    # Close button
     tk.Button(
         frame1,
         text="Exit",
-        font=("Abril Fatface", 12, "bold italic"),
+        font=("Helvetica", 12, "bold italic"),
         bg=pink,
         fg=dpurple,
         cursor="hand2",
@@ -141,7 +134,7 @@ def frame2_addnew():
         text="Contactbook CLI",
         bg=beige,
         fg=dpurple,
-        font=("Abril Fatface", 20)
+        font=("Helvetica", 20, "bold")
         ).pack(pady=20)
 
     # Enter-name label
@@ -150,7 +143,7 @@ def frame2_addnew():
         text="Enter Name",
         bg=beige,
         fg=violet,
-        font=("Roboto Mono", 12),
+        font=("Courier", 12),
     ).pack(fill="both")
 
     # Name entry widget (store actual widget)
@@ -163,18 +156,18 @@ def frame2_addnew():
         text="Enter Phone",
         bg=beige,
         fg=violet,
-        font=("Roboto Mono", 12),
+        font=("Courier", 12),
     ).pack(fill="both")
 
     # Phone entry widget (store actual widget)
     phone_entry = tk.Entry(frame2, width=40)
     phone_entry.pack(pady=15)
-	
+    
     # save button
     tk.Button(
         frame2,
         text="Save",
-        font=("Abril Fatface", 16, "bold"),
+        font=("Helvetica", 16, "bold"),
         bg=pink,
         fg=dpurple,
         cursor="hand2",
@@ -187,7 +180,7 @@ def frame2_addnew():
     tk.Button(
         frame2,
         text="Back",
-        font=("Abril Fatface", 12, "bold italic"),
+        font=("Helvetica", 12, "bold italic"),
         bg=pink,
         fg=dpurple,
         cursor="hand2",
@@ -213,7 +206,7 @@ def frame3_saved():
         text="Contactbook CLI",
         bg=beige,
         fg=dpurple,
-        font=("Abril Fatface", 20)
+        font=("Helvetica", 20, "bold")
         ).pack(pady=20)
 
         # new contact saved or not
@@ -222,14 +215,14 @@ def frame3_saved():
         text=frame3text,
         bg=beige,
         fg=dpurple,
-        font=("Abril Fatface", 20)
+        font=("Helvetica", 20, "bold")
         ).pack(pady=20)
 
         # Back button
         tk.Button(
         frame3,
         text="Back",
-        font=("Abril Fatface", 12, "bold italic"),
+        font=("Helvetica", 12, "bold italic"),
         bg=pink,
         fg=dpurple,
         cursor="hand2",
@@ -254,7 +247,7 @@ def frame4_allcontacts():
             text="All Saved Contacts:",
             bg=beige,
             fg=dpurple,
-            font=("Abril Fatface", 20)
+            font=("Helvetica", 20, "bold")
             ).pack(pady=20)
     
     # text display for contacts
@@ -265,7 +258,7 @@ def frame4_allcontacts():
             height=10,
             bg=violet,
             fg=beige,
-            font=("Roboto Mono", 12, "bold")
+            font=("Courier", 12, "bold")
       )
     all_contacts.pack(pady=10)
       
@@ -278,7 +271,7 @@ def frame4_allcontacts():
     tk.Button(
         frame4,
         text="Back",
-        font=("Abril Fatface", 12, "bold italic"),
+        font=("Helvetica", 12, "bold italic"),
         bg=pink,
         fg=dpurple,
         cursor="hand2",
@@ -304,7 +297,7 @@ def frame5_search():
         text="Contactbook CLI",
         bg=beige,
         fg=dpurple,
-        font=("Abril Fatface", 20)
+        font=("Helvetica", 20, "bold")
         ).pack(pady=20)
     
     # search label
@@ -313,7 +306,7 @@ def frame5_search():
         text="Enter Name",
         bg=beige,
         fg=violet,
-        font=("Roboto Mono", 12),
+        font=("Courier", 12),
     ).pack(fill="both")
 
     # search word entry
@@ -324,7 +317,7 @@ def frame5_search():
     tk.Button(
         frame5,
         text="Search",
-        font=("Abril Fatface", 16, "bold"),
+        font=("Helvetica", 16, "bold"),
         bg=pink,
         fg=dpurple,
         cursor="hand2",
@@ -336,7 +329,7 @@ def frame5_search():
     tk.Button(
         frame5,
         text="Back",
-        font=("Abril Fatface", 12, "bold italic"),
+        font=("Helvetica", 12, "bold italic"),
         bg=pink,
         fg=dpurple,
         cursor="hand2",
@@ -361,7 +354,7 @@ def frame6_search_res():
         text="Contactbook CLI",
         bg=beige,
         fg=dpurple,
-        font=("Abril Fatface", 20)
+        font=("Helvetica", 20, "bold")
         ).pack(pady=20)
     
     # results label
@@ -370,7 +363,7 @@ def frame6_search_res():
             text=f"Search Results: ",
             bg=beige,
             fg=dpurple,
-            font=("Abril Fatface", 20)
+            font=("Helvetica", 20, "bold")
             ).pack(pady=20)
     
     # search results
@@ -381,7 +374,7 @@ def frame6_search_res():
             height=10,
             bg=violet,
             fg=beige,
-            font=("Roboto Mono", 12, "bold")
+            font=("Courier", 12, "bold")
       )
     all_contacts.pack(pady=10)
       
@@ -394,7 +387,7 @@ def frame6_search_res():
     tk.Button(
         frame6,
         text="Edit",
-        font=("Abril Fatface", 16, "bold"),
+        font=("Helvetica", 16, "bold"),
         bg=pink,
         fg=dpurple,
         cursor="hand2",
@@ -406,7 +399,7 @@ def frame6_search_res():
     tk.Button(
         frame6,
         text="Back",
-        font=("Abril Fatface", 12, "bold italic"),
+        font=("Helvetica", 12, "bold italic"),
         bg=pink,
         fg=dpurple,
         cursor="hand2",
@@ -433,7 +426,7 @@ def frame7_edit_contact():
         text="Leave Blank for no change",
         bg=beige,
         fg=dpurple,
-        font=("Abril Fatface", 20)
+        font=("Helvetica", 20, "bold")
         ).pack(pady=20)
     
     # endter new name label
@@ -442,7 +435,7 @@ def frame7_edit_contact():
         text="Enter New Name",
         bg=beige,
         fg=violet,
-        font=("Roboto Mono", 12),
+        font=("Courier", 12),
     ).pack(fill="both")
 
     # edit name entry
@@ -455,7 +448,7 @@ def frame7_edit_contact():
         text="Enter New Phone",
         bg=beige,
         fg=violet,
-        font=("Roboto Mono", 12),
+        font=("Courier", 12),
     ).pack(fill="both")
 
     # edit phone entry
@@ -466,7 +459,7 @@ def frame7_edit_contact():
     tk.Button(
         frame7,
         text="Confirm",
-        font=("Abril Fatface", 16, "bold"),
+        font=("Helvetica", 16, "bold"),
         bg=pink,
         fg=dpurple,
         cursor="hand2",
@@ -478,7 +471,7 @@ def frame7_edit_contact():
     tk.Button(
         frame7,
         text="Back",
-        font=("Abril Fatface", 12, "bold italic"),
+        font=("Helvetica", 12, "bold italic"),
         bg=pink,
         fg=dpurple,
         cursor="hand2",
@@ -503,14 +496,14 @@ def frame8_edit_message():
         text=frame8text,
         bg=beige,
         fg=dpurple,
-        font=("Abril Fatface", 20)
+        font=("Helvetica", 20, "bold")
         ).pack(pady=20)
 
     # Back button
     tk.Button(
         frame8,
         text="Back",
-        font=("Abril Fatface", 12, "bold italic"),
+        font=("Helvetica", 12, "bold italic"),
         bg=pink,
         fg=dpurple,
         cursor="hand2",
@@ -641,10 +634,7 @@ frame8 = tk.Frame(root, bg=beige)
 for frame in (frame1, frame2, frame3, frame4, frame5, frame6, frame7, frame8):
 	frame.grid(row=0, column=0, sticky="nesw")
 
-# logo for the window
-logo = PhotoImage(file = './Assets/logo.png')
-# Setting icon of root window
-root.iconphoto(False, logo)
+
 	
 frame1_index() # calls frame1 in the start
 
